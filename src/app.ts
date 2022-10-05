@@ -1,5 +1,6 @@
-import { Application, Request, Response, NextFunction } from "express";
-import type { ErrorRequestHandler } from "express";
+import { Application, NextFunction } from "express";
+import { ErrorRequestHandler } from "express";
+import mockedNotes from "./repositories/mockedNotes";
 
 const express = require('express');
 const logger = require('morgan');
@@ -8,7 +9,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const notesRouter = require('./routes/notes');
+const NotesRouter = require('./routes/notesRouter');
 
 const app:Application = express();
 
@@ -18,11 +19,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use('/notes', notesRouter);
-
-app.use((req:Request, res:Response) => {
-  res.status(404).json({ message: 'Not found' })
-});
+app.use('/notes', NotesRouter(app, mockedNotes));
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next:NextFunction) => { 
   const { status = 500, message = 'Server error' } = err
