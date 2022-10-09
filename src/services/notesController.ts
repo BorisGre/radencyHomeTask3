@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { v4 } from "uuid"
 import { noteAddIface, noteIface, noteIfaceUpdating, uidIface } from "../helpers/interfaces";
-import mockedNotes from "../repositories/mockedNotes";
 import { NotesModel } from "../repositories/notesModel";
 import { NotesService } from "./notesService";
+import mockedNotes from "../repositories/mockedNotes";
 
 class NotesController{
     
