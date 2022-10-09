@@ -2,11 +2,12 @@
   "name": "radency_hometask_3",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.ts",
-    "build": "tsc --project ./"
+    "build": "tsc --build .",
+    "start": "node dist/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +28,6 @@
     "express-generator": "^4.2.0",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
-    "tsc": "^2.0.4",
-    "typescript": "^4.8.4"
+    "tsc": "^2.0.4"
   }
 }
