@@ -1,17 +1,16 @@
 import * as yup from 'yup';
 
-const noteUidSchema = yup.object().shape({
+const noteUidSchema = yup.object({
 
-        uid: yup.string().length(36).required(),
-    })
+        uid: yup.string().required(),
+      });
 
-const noteSchemaObj = yup.object().shape({
+const noteSchemaObj = yup.object({
 
         uid: yup.string().length(36).required(),
         name: yup.string().required(),
         category: yup.string().required(),
         dateCreated: yup.number().positive().integer().default(() => Date.now()).required(),
-        dateEdited: yup.number().positive().integer().default(() => Date.now()).required(),
         content: yup.string().required(),
         archived: yup.boolean().required(),
       });

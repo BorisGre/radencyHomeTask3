@@ -1,36 +1,35 @@
 import { Application } from "express";
-import { noteIface } from "../helpers/interfaces";
 import { NotesController } from "../services/notesController";
 
 class NotesRouter {
 
     app: Application
     notesController:NotesController
-    constructor(app:Application, mockedNotes: noteIface[]){
-
+    constructor(app: Application){
+        
         this.app = app
-        this.notesController = new NotesController(mockedNotes)
+        this.notesController = new NotesController()
     }
 
-    router(){
-
+    routes(baseURI: String){
+       
         //Create(add) a new note
-        this.app.post("/notes", this.notesController.addNote)
+        this.app.post(`/${baseURI}`, this.notesController.addNote.bind(this.notesController))
 
         //Read all notes 
-        this.app.get("/notes", this.notesController.getAllNotes)
+        this.app.get(`/${baseURI}`, this.notesController.getAllNotes.bind(this.notesController))
+
+        //Calc notes stats
+        this.app.get(`/${baseURI}/stats`, this.notesController.getStats.bind(this.notesController))
 
         //Read one note
-        this.app.get("/notes/:id", this.notesController.getNote)
-
-        //Read note stats
-        this.app.get("/notes/stats", this.notesController.getStats)
+        this.app.get(`/${baseURI}/:id`, this.notesController.getNote.bind(this.notesController))
 
         //Update selected note
-        this.app.patch("/notes/:id", this.notesController.updateNote)
+        this.app.patch(`/${baseURI}/:id`, this.notesController.updateNote.bind(this.notesController))
 
         //Delete selected note
-        this.app.delete("/notes/:id", this.notesController.removeNote)
+        this.app.delete(`/${baseURI}/:id`, this.notesController.removeNote.bind(this.notesController))
     }
 }
 

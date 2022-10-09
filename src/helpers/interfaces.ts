@@ -2,18 +2,24 @@ interface uidIface {
     uid: String
 }
 
-interface noteIface extends uidIface{
+interface noteAddIface {
+    name: String,
+    category: String, 
+    content: String,
+    archived: Boolean
+}
 
+interface noteIface extends uidIface {
     name: String,
     category: String,
-    dateCreated: Number,
+    dateCreated?: Number,
     dateEdited?: Number,
     content: String,
     archived: Boolean
 }
 
 interface noteIfaceUpdating extends noteIface {
-
+    dateCreated: Number,
     dateEdited: Number,
 }
 
@@ -24,4 +30,4 @@ interface categoryNotesMap {
     "archived": Number
 }
 
-export { uidIface, noteIface, noteIfaceUpdating, categoryNotesMap }
+export { uidIface, noteAddIface, noteIface, noteIfaceUpdating, categoryNotesMap }

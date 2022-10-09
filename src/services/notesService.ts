@@ -8,7 +8,7 @@ class NotesService {
         this.notes = mockedNotes
     }
  
-    addNote(note: noteIface){
+    async addNote(note: noteIface){
       
         let status: Boolean = false 
         
@@ -19,14 +19,14 @@ class NotesService {
         return { status, note }
     }
     
-    getAllNotes(){
+    async getAllNotes(){
 
         let status: Boolean = true
          
         return { status, notes: this.notes }
     }
 
-    getNote(uid: String){
+    async getNote(uid: uidIface['uid']){
 
         let status: Boolean = false 
         let note: noteIface|Object = {}
@@ -43,7 +43,7 @@ class NotesService {
         return { status, note }
     }
 
-    getStats(){
+    async getStats(){
 
         let status: Boolean = false
 
@@ -64,15 +64,15 @@ class NotesService {
         return { status, stats: notesMapArray }    
     }
 
-    updateNote(updatingNote: noteIfaceUpdating){
+    async updateNote(updatingNote: noteIfaceUpdating){
 
         let status: Boolean = false 
     
-            this.notes.forEach(note => {
+            this.notes.forEach((note, index) => {
 
                 if(note.uid === updatingNote.uid){
 
-                    note = updatingNote
+                    this.notes[index] = updatingNote
                     status = true 
                 }
             })
@@ -80,8 +80,8 @@ class NotesService {
         return { status, note: updatingNote }
     }
 
-    removeNote({uid}: uidIface){
-
+    async removeNote(uid: uidIface['uid']){
+        
         let status: Boolean = false 
         let note: noteIface|Object = {}
         
@@ -90,6 +90,7 @@ class NotesService {
         if(noteArr.length === 1){
 
             this.notes = this.notes.filter(n => n.uid !== uid)
+            note = noteArr[0]
             status = true 
         } 
          
